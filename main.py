@@ -11,7 +11,8 @@ Boleta:2017613251
 
 Sirve:
 El programa se encarga de tomar 2 pistas de audio en formato WAV y
- obtener la correlacion normalizada entre estas.
+obtener la correlacion normalizada entre estas.
+*probado con archivos WAV en codificacion pcm_16 (16 bits) *
 
 Recibe dos cadenas de audio wav y valor K de retraso para la señal (1) 
 
@@ -21,7 +22,7 @@ Salidas:
 """
 from utilerias.clases import *
 #constantes para el programa
-ruta_audios = os.path.dirname(os.path.abspath(__file__))+"\\audios"
+ruta_audios = os.path.dirname(os.path.abspath(__file__))+"/audios"
 lista_audios = os.listdir(ruta_audios)
 opcion =True
 
@@ -37,8 +38,12 @@ while(opcion):
     opcion = input("inserte un valor numerico >>")
 
     if opcion !='0': 
-        muestreo , sonido = waves.read(ruta_audios+"\\"+lista_audios[int(opcion)-1])
-        señalWAV = audio(sonido)
+        muestreo , sonido = waves.read(ruta_audios+"/"+lista_audios[int(opcion)-1])
+        signalWAV = audio(sonido)
+        signalWAV.normalizar()
+        signalWAV.plotear()
+
+        break
         
     elif opcion == '0': 
       break
