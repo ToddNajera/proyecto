@@ -23,7 +23,7 @@ Salidas:
 from numpy import float64
 from utilerias.clases import *
 #constantes para el programa
-ruta_audios = os.path.dirname(os.path.abspath(__file__))+"\\audios"
+ruta_audios = os.path.dirname(os.path.abspath(__file__))+"/audios"
 lista_audios = os.listdir(ruta_audios)
 opcion =True
 
@@ -40,7 +40,7 @@ while(opcion):
 
     if opcion !='0': 
         #Creamos nuestra primera señal de audio
-        muestreo1 , sonido1 = waves.read(ruta_audios+"\\"+lista_audios[int(opcion)-1])
+        muestreo1 , sonido1 = waves.read(ruta_audios+"/"+lista_audios[int(opcion)-1])
         signalWAV1 = audio(sonido1,lista_audios[int(opcion)-1])
         signalWAV1.normalizar()
 
@@ -54,7 +54,7 @@ while(opcion):
         op_corr = input("inserte un valor numerico >>")
 
         #Creamos nuestra primera señal de audio
-        muestreo2 , sonido2 = waves.read(ruta_audios+"\\"+lista_audios[int(op_corr)-1])
+        muestreo2 , sonido2 = waves.read(ruta_audios+"/"+lista_audios[int(op_corr)-1])
         signalWAV2 = audio(sonido2,lista_audios[int(op_corr)-1])
         signalWAV2.normalizar()
 
@@ -76,8 +76,8 @@ while(opcion):
         
 
 
-        #correlacion_norm , correlacion_signal = signalWAV1.correlacion_cruzada(signalWAV2,0)
-        correlacion_norm , correlacion_signal = signalWAV1.autocorrelacion()
+        correlacion_norm , correlacion_signal = signalWAV1.correlacion_cruzada(signalWAV2,0)
+        #correlacion_norm , correlacion_signal = signalWAV1.autocorrelacion()
 
 
 

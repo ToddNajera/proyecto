@@ -14,6 +14,7 @@ Salidas:
 -valor de la energia relacionada a la señal (autocorrelacion)
 """
 #Librerias usadas
+import os
 import numpy
 from time import sleep
 from numpy.core.numeric import correlate
