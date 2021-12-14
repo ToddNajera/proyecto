@@ -89,6 +89,7 @@ class AutoCorrelacionFrame(ttk.Frame):
     def norm1(self):
         self.muestreo1 , self.sonido1 = waves.read(self.filename)
         self.signalWAV1 = audio(self.sonido1,"audio 1")
+        #self.signalWAV1 = audio([0,1,2,3,4,5,6,7,8,9],"lista")
         self.signalWAV1.normalizar()
         
     def graf(self):
