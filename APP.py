@@ -75,8 +75,15 @@ class AutoCorrelacionFrame(ttk.Frame):
         
         self.file1_button = ttk.Button(self, text="Buscar pista",command=lambda:[self.openfile(),self.norm1()])
         self.file1_button.pack(pady=10)
+        """Para acceder al valor de retraso usar self.entero_retraso.get()"""
+        self.label = ttk.Label(self)
+        self.label["text"] = ("Introducir valor de retraso de señal.")
+        self.label.pack(pady=10)
 
-        self.forum_button = ttk.Button(self, text="calcular",command=lambda:self.graf())
+        self.entero_retraso = ttk.Entry (self)
+        self.entero_retraso.pack(pady=10)
+
+        self.forum_button = ttk.Button(self, text="calcular",command=lambda:[self.graf(),print(self.entero_retraso.get())])
         self.forum_button.pack(side=tkinter.BOTTOM,pady=20)
     """
     ------------------------------------------------------------------------------
@@ -88,6 +95,7 @@ class AutoCorrelacionFrame(ttk.Frame):
     
     def norm1(self):
         self.muestreo1 , self.sonido1 = waves.read(self.filename)
+        print(self.filename)
         self.signalWAV1 = audio(self.sonido1,"audio 1")
         #self.signalWAV1 = audio([0,1,2,3,4,5,6,7,8,9],"lista")
         self.signalWAV1.normalizar()
@@ -127,6 +135,14 @@ class CorrelacionFrame(ttk.Frame):
 
         self.file2_button = ttk.Button(self, text="Buscar pista 2",command=lambda:[self.openfile(),self.norm2()])
         self.file2_button.pack(pady=10)
+
+        """Para acceder al valor de retraso usar self.entero_retraso.get()"""
+        self.label = ttk.Label(self)
+        self.label["text"] = ("Introducir valor de retraso de señal.")
+        self.label.pack(pady=10)
+
+        self.entero_retraso = ttk.Entry (self)
+        self.entero_retraso.pack(pady=10)
 
         self.forum_button = ttk.Button(self, text="calcular",command=self.graf)
         self.forum_button.pack(side=tkinter.BOTTOM,pady=20)
