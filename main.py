@@ -41,7 +41,7 @@ while(opcion):
     if opcion !='0': 
         #Creamos nuestra primera señal de audio
         muestreo1 , sonido1 = waves.read(ruta_audios+"/"+lista_audios[int(opcion)-1])
-        signalWAV1 = audio(sonido1,lista_audios[int(opcion)-1])
+       #signalWAV1 = audio(sonido1,lista_audios[int(opcion)-1])
         signalWAV1.normalizar()
 
         #Seleccion de Señales para Correlacion Cruzada
