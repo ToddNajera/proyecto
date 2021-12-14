@@ -30,20 +30,24 @@ class audio:
         Constructor de la clase
         """
         self.name = name
-        if len(archivoWAV.shape) == 1 :
-            self.wave = archivoWAV[:]
-        else:
-            self.wave = archivoWAV[:,len(archivoWAV.shape)]
+        self.wave = archivoWAV
         self.amplitud = numpy.max(self.wave)
         self.longitud = len(self.wave)
+    
+    def __str__(self):
+        """
+        Funcion para imprension en pantalla de la señal
+        """
+        return str(self.name)+"-"+str(self.wave)+"-"+str(self.amplitud)+"-"+str(self.longitud) 
 
     def normalizar(self):
         """
         Sirve para tomar el conjunto de datos y normalizar los valores entre 0 y 1 
         esto dividiendo todos nuestros elemetos entre la amplitud maxima de la señal
         """
-        self.wave = self.wave / self.amplitud
-        
+        self.norm = numpy.linalg.norm(self.wave)
+        self.wave = self.wave / self.norm
+
     
     def plotear(self,color):
         """
@@ -78,19 +82,15 @@ class audio:
         regresa correlacion nomalizada  y señal resultante
         """
         #la correlacion se acota a la señal mas corta
-        if self.longitud > signalWAV.longitud :
+        k = int (k)
+        correlacion_norm = 0
+        correlacion_signal = numpy.zeros(signalWAV.longitud,dtype=numpy.float64)
 
-            correlacion_norm = 0
-            correlacion_signal = numpy.zeros(signalWAV.longitud,dtype=numpy.float64)
-            for n in enumerate(signalWAV.wave):
-                correlacion_signal[n[0]] = (1/signalWAV.longitud) * numpy.sqrt(numpy.float_power(self.wave[n[0]+k],2) * numpy.float_power(signalWAV.wave[n[0]],2))
-                correlacion_norm = correlacion_norm + (correlacion_signal[n[0]] / (1/signalWAV.longitud) * correlacion_signal[n[0]])
-        else:
-            correlacion_norm = 0
-            correlacion_signal = numpy.zeros(self.longitud,dtype=numpy.float64)
-            for n in enumerate(self.wave):
-                correlacion_signal[n[0]] = (1/self.longitud) * numpy.sqrt(numpy.float_power(self.wave[n[0]],2) * numpy.float_power(signalWAV.wave[n[0]+k],2))
-                correlacion_norm = correlacion_norm + (correlacion_signal[n[0]] / (1/signalWAV.longitud) * correlacion_signal[n[0]])
+        for n in enumerate(signalWAV.wave):
+            print (str(n)+"-"+str(self.wave[n[0]+k]))
+            print (str(n)+"-"+str(signalWAV.wave[n[0]]))
+            correlacion_signal[n[0]] = self.wave[n[0]+k] * signalWAV.wave[n[0]]
+            correlacion_norm = correlacion_norm + correlacion_signal[n[0]] 
 
         return correlacion_norm , correlacion_signal
 
@@ -104,7 +104,7 @@ class audio:
         autocorrelacion_signal = numpy.zeros(self.longitud+1,dtype=numpy.float64)
         
         for n in enumerate(self.wave):
-                autocorrelacion_signal[n[0]] = numpy.sqrt(numpy.float_power(self.wave[n[0]],2) * numpy.float_power(self.wave[n[0]],2))
-                autocorrelacion_norm = autocorrelacion_norm + (autocorrelacion_signal[n[0]] / (1/self.longitud) * autocorrelacion_signal[n[0]])
+            autocorrelacion_signal[n[0]] = self.wave[n[0]] * self.wave[n[0]]
+            autocorrelacion_norm = autocorrelacion_norm + autocorrelacion_signal[n[0]] 
         
         return autocorrelacion_norm , autocorrelacion_signal

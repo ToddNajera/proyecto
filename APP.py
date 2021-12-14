@@ -166,7 +166,8 @@ class CorrelacionFrame(ttk.Frame):
         self.signalWAV2.normalizar()
     #funcion para graficar    
     def graf(self):
-        self.correlacion_norm , self.correlacion_signal = self.signalWAV1.correlacion_cruzada(self.signalWAV2,0)
+        K = self.entero_retraso.get()
+        self.correlacion_norm , self.correlacion_signal = self.signalWAV1.correlacion_cruzada(self.signalWAV2,K)
         tkinter.messagebox.showinfo("Resultados","Correlacion Normalizada " + str(self.correlacion_norm))
         print("Correlacion Normalizada " + str(self.correlacion_norm))
         pyplot.title('Correlación de Señales')
