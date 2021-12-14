@@ -101,7 +101,8 @@ class AutoCorrelacionFrame(ttk.Frame):
         self.signalWAV1.normalizar()
         
     def graf(self):
-        self.correlacion_norm , self.correlacion_signal = self.signalWAV1.autocorrelacion()
+        K = self.entero_retraso.get()
+        self.correlacion_norm , self.correlacion_signal = self.signalWAV1.autocorrelacion(K)
         tkinter.messagebox.showinfo("Resultados","Correlacion Normalizada " + str(self.correlacion_norm))
         print("Correlacion Normalizada " + str(self.correlacion_norm))
         pyplot.title('Correlación de Señales')

@@ -85,26 +85,34 @@ class audio:
         k = int (k)
         correlacion_norm = 0
         correlacion_signal = numpy.zeros(signalWAV.longitud,dtype=numpy.float64)
+        relleno = numpy.zeros(k,dtype=numpy.float64)
+        self.wave = numpy.concatenate((self.wave,relleno),axis=0)
+        if signalWAV.longitud > self.longitud:
 
-        for n in enumerate(signalWAV.wave):
-            print (str(n)+"-"+str(self.wave[n[0]+k]))
-            print (str(n)+"-"+str(signalWAV.wave[n[0]]))
-            correlacion_signal[n[0]] = self.wave[n[0]+k] * signalWAV.wave[n[0]]
-            correlacion_norm = correlacion_norm + correlacion_signal[n[0]] 
+            for index in range(self.longitud):
+                correlacion_signal[index] = self.wave[index+k] * signalWAV.wave[index]
+                correlacion_norm = correlacion_norm + correlacion_signal[index] 
+        else:
+            for index in range(signalWAV.longitud):
+                correlacion_signal[index] = self.wave[index+k] * signalWAV.wave[index]
+                correlacion_norm = correlacion_norm + correlacion_signal[index] 
 
         return correlacion_norm , correlacion_signal
 
-    def autocorrelacion(self):
+    def autocorrelacion(self,k):
         """
         La autocorrelacion es la correlacion cruzada hecha sobre la misma señal
 
         donde el valor que sevuelve la suma es 
         """
+        k = int (k)
         autocorrelacion_norm = 0
         autocorrelacion_signal = numpy.zeros(self.longitud+1,dtype=numpy.float64)
+        relleno = numpy.zeros(k,dtype=numpy.float64)
+        self.wave = numpy.concatenate((self.wave,relleno),axis=0)
         
-        for n in enumerate(self.wave):
-            autocorrelacion_signal[n[0]] = self.wave[n[0]] * self.wave[n[0]]
-            autocorrelacion_norm = autocorrelacion_norm + autocorrelacion_signal[n[0]] 
+        for index in range(self.longitud):
+            autocorrelacion_signal[index] = self.wave[index+k] * self.wave[index]
+            autocorrelacion_norm = autocorrelacion_norm + autocorrelacion_signal[index] 
         
         return autocorrelacion_norm , autocorrelacion_signal
